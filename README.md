@@ -97,6 +97,23 @@ Currently, the package can be installed directly from the distributed files:
 # Instructions for installing the Python package will be provided here
 ```
 
+#### Linux Dependencies
+
+On Linux distributions, you may need to install Python development files:
+
+- Debian/Ubuntu:
+  ```bash
+  sudo apt-get install python3-dev
+  ```
+
+- Fedora/RHEL/CentOS:
+  ```bash
+  sudo dnf install python3-devel
+  ```
+
+- Arch Linux:
+  Python development headers are already included with the standard Python installation.
+
 ### 🧩 Frontend (Browser Extension)
 
 *WIP: Chrome Web Store and Firefox Add-ons releases are being worked on.*
@@ -150,6 +167,8 @@ For installation, see [Installation](#installation)
    ```bash
    vettavista-backend
    ```
+
+   The first start will take longer, as a few models need to be downloaded.
 4. Browse LinkedIn jobs as usual - VettaVista will automatically start working!
 
 ### 🔍 Job Filtering

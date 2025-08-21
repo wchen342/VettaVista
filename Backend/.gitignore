@@ -46,9 +46,6 @@ Thumbs.db
 # Environment
 .env
 
-# ML Models
-models/
-
 # Latex
 *.tex
 *.pdf
