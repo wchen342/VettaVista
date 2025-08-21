@@ -31,7 +31,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
+Homepage = "https://github.com/wchen342/VettaVista/tree/master/Backend"
 
 [build-system]
 requires = ["hatchling >= 1.26"]
