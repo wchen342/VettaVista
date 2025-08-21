@@ -1,0 +1,38 @@
+# Search configuration
+
+# Preferred job titles - used for semantic matching
+preferred_titles:
+  - "Mobile Developer"
+  - "Software Engineer"
+  - "Software Developer"
+  - "Python Developer"
+  - "Full Stack Developer"
+  - "Backend Engineer"
+
+# Words that indicate a job should be skipped
+bad_words:
+  - 'lead'
+  - 'principal'
+  - 'staff'
+  - 'architect'
+  - 'head'
+  - 'director'
+  - 'vp'
+  - 'chief'
+  - 'cto'
+  - 'cio'
+
+# Skills that shall be skipped in required
+skip_required_skill:
+  - 'PHP'
+
+# Words to remove before language detection
+lang_detect_remove_words:
+  - "python"
+  - "java"
+  - "javascript"
+  - "typescript"
+  - "react"
+  - "node"
+  - "aws"
+  - "azure"

@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "VettaVista - Smart Job Search & Application Assistant",
+  "short_name": "VettaVista",
+  "description": "Browser-integrated LinkedIn companion offering intelligent job filtering alongside tailored application refinement.",
+  "version": "0.0.1",
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "ws://127.0.0.1:8000/*"
+  ],
+  "action": {
+    "default_title": "VettaVista",
+    "default_popup": "/popup/html/popup.html",
+    "default_icon": {
+      "16": "/images/icon-16.png",
+      "32": "/images/icon-32.png",
+      "48": "/images/icon-48.png",
+      "128": "/images/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/icon-16.png",
+    "32": "/images/icon-32.png",
+    "48": "/images/icon-48.png",
+    "128": "/images/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.linkedin.com/*"
+      ],
+      "css": [
+        "/content-script/css/content-script.css"
+      ],
+      "js": [
+        "/content-script/js/content-script.js"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "/background/js/background.js"
+  }
+}

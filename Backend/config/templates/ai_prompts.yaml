@@ -1,0 +1,622 @@
+# AI Prompts
+
+# Claude
+
+# Extract requirements and schema structure
+claude_extraction_prompt_base: |
+  TASK: Please analyze the job posting following SCHEMA_RULES, then format the results according to OUTPUT_FORMAT exactly. Return only raw JSON WITHOUT code block, with no artifacts or explanations. DO NOT include any thinking process.
+  
+  SCHEMA_RULES: {
+      "skills": {
+          "description": "Include ONLY skills from explicit requirement statements.",
+          "properties": {
+              "programming languages": "Programming languages explicitly required",
+              "frameworks": "Frameworks explicitly required",
+              "other technical": "Other technical skills explicitly required",
+              "soft skills": "Non-technical professional skills explicitly required",
+              "languages": {
+                  "required": "Human languages explicitly required",
+                  "preferred": "Human languages preferred but not required"
+              }
+          }
+      }
+  }
+  
+  OUTPUT_FORMAT: {
+      "experience": {
+          "years": "number|-1",
+          "months": "number|-1",
+          "is_minimum": "boolean",
+          "context": "string"
+      },
+      "skills": {
+          "programming languages": "string[]",
+          "frameworks": "string[]",
+          "other technical": "string[]",
+          "soft skills": "string[]",
+          "languages": {
+              "required": "string[]",
+              "preferred": "string[]"
+          }
+      },
+      "red_flags": {
+          "score": "number:0-100",
+          "reasons": "string[]"
+      },
+      "supports_visa": "SUPPORTED||UNSUPPORTED||UNKNOWN"
+  }
+
+# Job post experience requirements analysis rules
+claude_experience_rules: |
+  EXTRACTION_RULES: {
+      EXPERIENCE: {
+          - Convert all experience mentions to years and months
+          - "X+ years" indicates minimum requirement
+          - Ranges: use lower bound
+          - If no experience mentioned: years:-1, months:-1
+          - Extract context phrase where experience was mentioned
+          - Include only explicit numeric experience requirements
+      }
+  }
+
+# Job post skills requirements analysis rules
+claude_skills_rules: |
+  EXTRACTION_RULES: {
+      SKILLS: {
+          DEFINITION: {
+              A valid skill must:
+              1. Be explicitly stated as a current requirement, or be explicitly being looked for
+              2. NOT appear *only* in contexts about:
+                  - "opportunity/opportunities to..."
+                  - "chance to work/learn/use..."
+                  - "will use/develop with..."
+                  - "exposure to..."
+                  - "tech stack includes..."
+                  Even if the skill is described in specific technical detail
+          }
+  
+          PROCESSING: {
+              EXTRACTION: [
+                  1. Include ONLY skills explicit required *now*. Exclude any skills mentioned in future opportunities, development possibilities, or technology exposure.
+                  2. Validate remaining skills are explicit requirements
+                  3. Remove versions and proficiency levels
+                  4. Remove duplicates
+              ]
+  
+              CATEGORIZATION: {
+                  "programming languages": [programming languages only]
+                  "frameworks": [development frameworks only]
+                  "other technical": [technical skills not fitting above]
+                  "soft skills": [non-technical professional skills]
+              }
+  
+              LANGUAGES: {
+                  SCOPE: [human languages only]
+                  RULES: [
+                      - English is assumed
+                      - Exclude country names unless explicit language requirement
+                      - Separate required vs preferred based on requirement context
+                      - Remove proficiency levels
+                      - Return a list of language names like ['German', 'Spanish'], no conjunctions are allowed
+                      - Exclude regulatory/legal notices (e.g. "m/f/d")
+                  ]
+              }
+          }
+      }
+  }
+
+# Visa requirements analysis rules
+claude_visa_rules: |
+  EXTRACTION_RULES: {
+      VISA: {
+          ANALYSIS: {
+              Core Principle:
+              ONLY mark as UNSUPPORTED when there is explicit rejection of work permit/visa sponsorship for the role itself.
+  
+              Context Analysis:
+              - Distinguish between:
+                  * Work authorization requirements
+                  * Location requirements
+                  * Export control restrictions
+                  * Security clearance requirements
+                  * Remote work policies
+  
+              Location Statements:
+              - "Based in [location]" = UNKNOWN (location preference, not visa status)
+              - "Must be in [location]" = UNKNOWN (physical requirement, not visa status)
+              - "[Location] only" = UNKNOWN (needs further context)
+  
+              Authorization Contexts:
+              - Consider what type of authorization is being discussed:
+                  * Work permits/visas
+                  * Security clearances
+                  * Export controls
+                  * Industry certifications
+                  * Professional licenses
+  
+              Default Position:
+              - When ambiguous = UNKNOWN
+              - When mixing different requirements = UNKNOWN
+              - When only mentioning location = UNKNOWN
+              - When only discussing non-visa restrictions = UNKNOWN
+          }
+  
+          DETERMINATION: {
+              SUPPORTED only if:
+              - Explicit statement about providing visa sponsorship for this role
+              - Clear mention of supporting work permit process
+  
+              UNSUPPORTED only if:
+              - Explicit statement that no visa/work permit sponsorship available for this role
+              - Clear statement of requiring existing work authorization with no exceptions
+          }
+      }
+  }
+
+# Scoring rules
+claude_scoring_rules: |
+  EXTRACTION_RULES: {
+      SCORING: {
+          Calculate 0-100 score based on three equally weighted categories:
+  
+          1. Immigration/Visa (35% weight):
+          +30:explicit_no_visa_support
+          +15:ambiguous_work_authorization
+          +10:complex_location_requirements
+          -30:explicit_visa_support
+          -20:relocation_support
+          -15:international_hiring_mentioned
+  
+          2. Company Stability (35% weight):
+          +35:no_company_size_or_stage
+          +30:stealth_mode_no_funding
+          +25:multiple_urgent_senior_roles
+          +20:vague_company_structure
+          -30:recent_funding_mentioned
+          -25:clear_growth_metrics
+          -20:established_office_location
+          -15:transparent_team_structure
+  
+          3. Role/Process Clarity (30% weight):
+          +25:vague_responsibilities
+          +20:inconsistent_requirements
+          +20:no_salary_range
+          +15:no_interview_process
+          -30:clear_salary_range
+          -25:detailed_responsibilities
+          -20:structured_interview_process
+          -15:clear_reporting_structure
+  
+          final_score:weighted_avg(categories)
+          reasons:include_triggered_rules_with_weights
+      }
+  }
+
+# Answer Questions
+claude_answer_question: |
+  Answer this job application question professionally and concisely.
+  
+  Rules:
+  1. Give ONLY the answer, no explanations
+  2. Keep it professional and relevant
+  3. Use information from the provided user details
+  4. Be concise but complete
+  5. Don't include greetings or signatures
+  
+  Question: {question}
+  
+  User Information:
+  {user_info}
+  
+  Answer:
+
+# Resume Customization Prompt
+# Step 1 - extract relevant information
+claude_resume_init: |
+  Please analyze this job and resume data for customization. Format your response as a structured JSON with no additional commentary and no code block. Do not include any thinking process:
+  
+  Job Description:
+  <job_description>
+  {job_description}
+  </job_description>
+  
+  Current Resume Data:
+  <resume_data>
+  {resume_data}
+  </resume_data>
+  
+  Job Post Analysis:
+  <job_post_analysis>
+  {job_post_analysis}
+  </job_post_analysis>
+  
+  Cultural Context:
+  <cultural_context>
+  {cultural_context}
+  </cultural_context>
+  
+  Return a JSON object with the following structure:
+  {{
+      "requirements_analysis": {{
+          "technical_match": {{
+              "matched": ["list of requirements matched with provided resume and experience"],
+              "missed": ["list of requirements missing from provided resume"],
+          }},
+          "domain_match": {{
+              "matched": ["list of domain requirements matching provided resume and experience"],
+              "missed": ["list of domain requirements missing from provided resume"]
+          }}
+      }},
+      "resume_assessment": {{
+          "strengths": ["list of matching qualifications"],
+          "gaps": ["list of missing qualifications"],
+          "domain_expertise": {{
+              "relevant": ["list of relevant domain experience"],
+              "transferable": ["list of transferable skills"]
+          }}
+      }},
+      "cultural_alignment": {{
+          "matches": ["list of matching cultural elements"],
+          "gaps": ["list of cultural elements to enhance"]
+      }},
+      "technical_integrity": {{
+          "current_stack": ["list of current technical expertise in resume"],
+          "missing_stack": ["list of required technical expertise not present in resume"],
+          "recommendations": ["list of specific areas to emphasize"]
+      }}
+  }}
+
+# Additional cultural contexts for customization. Will use default if not specified.
+claude_cultural_contexts_dict:
+  # Example
+  United States:
+    language: English
+    work_culture:
+      - Results-driven environment
+      - Fast-paced and dynamic
+      - Individual achievement valued
+      - Regular performance reviews
+      - Networking importance
+    business_practices:
+      - Quick decision making
+      - Innovation and risk-taking
+      - Customer-centric approach
+      - Competitive market focus
+
+# You need to preserve all keys for formatted strings.
+# If you don't understand what this means, do not modify.
+claude_cultural_context: |
+  Target Market: {country} {company_type}
+  Company Size: {company_size}
+  Working Language: {working_language}
+  
+  1. Work Culture Expectations:
+     {work_culture}
+  
+  2. Business Context:
+     {business_context}
+  
+  3. Cultural Integration Indicators:
+      - Documentation practices
+      - Process creation and optimization
+      - Team collaboration methods
+      - International experience
+      - Language capabilities
+      - Adaptability examples
+      - Cross-cultural communication
+  
+  4. Company Size Context:
+     {company_size_context}
+  
+  5. Employment History Documentation:
+      - Continuous employment history documentation
+      - Language acquisition efforts
+      - Cultural integration activities
+      - Gap explanation preferences
+      - Commitment to location
+
+# Step 2 - Reorganize skills section
+claude_resume_skills: |
+  Please think carefully for MULTIPLE iterations with self-criticisms, and reorganize the skills from the resume to best match the job requirements.
+  
+  Rules:
+  1. Create appropriate categories based on the job focus
+  2. Use proper capitalization for category names (e.g., "Programming Languages")
+  3. For existing skills:
+     - Only include skills that appear in the original resume
+     - Order skills within each category by relevance to the job
+     - Remove skills that are not relevant to this role
+     - Each skill must be traceable to the original resume
+  4. For recommended skills:
+     - Create a separate "Recommended Skills" category
+     - Include skills highly relevant to the job but not in the resume
+     - Each recommended skill must be specific and directly related to job requirements
+     - Limit to maximum 5 most important recommendations
+  5. Return ONLY the JSON with no additional commentary and no code block. DO NOT include any thinking process.
+  
+  Format your response as a JSON with categories and skills:
+  {
+      "Category Name": [
+          "skill1",
+          "skill2"
+      ],
+      "Recommended Skills": [
+          "recommended1",
+          "recommended2"
+      ]
+  }
+
+# Step 3 - Reorganize experience section
+claude_resume_experience: |
+  Please optimize the resume experience section while following these rules and guidelines.
+  
+  RULES - These must NEVER be violated:
+  1. Each position MUST keep at least 2 achievements
+  2. Never move achievements between positions
+  3. Never remove critical achievements, according to classification rules listed below 
+  4. Verify timeline with combined experience and education sections, and there shall be NO gap
+  
+  OPTIMIZATION Guidelines:
+  1. Technical Domain Classification:
+  - client: UI, mobile app, frontend features
+  - server: Backend, data processing, infrastructure
+  - full-stack: End-to-end implementations, cross-layer features
+  
+  2. Critical Achievement Classification:
+  - Initial product development
+  - Product launches
+  - Significant user growth
+  - SDK or other technical solution development
+  
+  3. Relevance Scoring Guidelines:
+  - Direct technical match: 1.0
+  - Related technical skills: 0.8-0.9
+  - Transferable skills: 0.6-0.7
+  - General practices: 0.4-0.5
+  - Other achievements: 0.1-0.3
+  
+  4. Optimize list of achievements for each position:
+  - Re-order achievements to prioritize achievements with highest relevance scores
+  - Keep critical achievements even if relevance score is low
+  - Rephrase achievements that has a relevance score of more than to 0.5:
+     a. Enhance achievement descriptions to focus on quantitative results and the impact
+     b. Adapt the achievement with phrases from job description, without violating technical domain. Rephrase in a way that is *most likely* to pass ATS.
+     c. After adaptation, validate your adaptation make sense, and do not divert significantly from provided experience
+     d. Redo the adaptation if the above validation fails
+  - Assess achievements that has a relevance score of less than or equal to 0.5:
+     a. If the achievement can be rephrased to meet required skills from job description without major derivation, then do rephrasing
+     b. If adaptation will cause major disparity to existing experiences, be clearly out of scope, or not be possible, remove the achievement
+  
+  Format your response EXACTLY as this JSON structure, with no additional commentary and no code block:
+  {{
+      "optimized_experience": [
+          {{
+              "exp_id": "string (matches the index in resume data)",
+              "achievements": [
+                  {{
+                      "text": "achievement text (maintain original substance, enhance format if natural)",
+                      "is_critical": boolean,
+                      "domain": "client|server|full-stack",
+                      "relevance_score": number 0-1
+                  }}
+              ]
+          }}
+      ]
+  }}
+
+# Step 4 - Adjust projects section
+claude_resume_projects: |
+  Please optimize the projects section to focus on quantitative results and their impact:
+  
+  Critical Rules:
+  1. Focus on technical implementations
+  2. Highlight collaboration aspects
+  3. Emphasize scale and impact
+  4. Maintain technical domain integrity
+  5. Preserve original technical context
+  
+  Format your response EXACTLY as this JSON structure:
+  {{
+      "optimized_projects": [
+          {{
+              "proj_id": "string (matches the index in resume data)",
+              "achievements": [
+                  {{
+                      "text": "achievement text",
+                      "domain": "client|server|full-stack",
+                      "relevance_score": number 0-1
+                  }}
+              ]
+          }}
+      ]
+  }}
+
+# Cover letter customization prompt
+claude_cover_letter: |
+  Please create a cover letter based on provided information:
+  
+  Resume Content:
+  {resume_content}
+  
+  Job Description:
+  {job_description}
+  
+  Current Date:
+  {current_date}
+  
+  Template Structure:
+  {cover_letter_template}
+  
+  CRITICAL_CONSTRAINTS = {{
+      "ABSOLUTELY_FORBIDDEN_WORDS": [
+          "ALIGNS",
+          "SPANS",
+          "RESONATES",
+          "HONED",
+          "THRILLED",
+          "DRAWN",
+          "ATTRACTED",
+          "EXACTLY",
+          "PERFECTLY",
+          "DEMONSTRATES"
+      ]
+  }}
+  
+  Narrative_Structure = {{
+      "opening_principles": {{
+          "start_with": technical_domain_principle,
+          "connect_to": personal_experience,
+          "structure": complete_sentences,
+          "tone": professional_technical
+      }},
+  
+      "core_narratives": {{
+          "each_section": {{
+              "lead": technical_concept,
+              "support": specific_experience,
+              "validate": measured_outcome,
+              "requirements": {{
+                  "complete_sentences_with_subject": True,
+                  "technical_specificity": True,
+              }}
+          }}
+      }}
+  }}
+  
+  Timeline_Handler = {{
+      "timeline_narrative": {{
+          "structure": chronological_integrity,
+          "focus": deliberate_transitions,
+          "tone": professional_strategic
+      }}
+  }}
+  
+  Tone_Control = {{
+      "sentence_structure": {{
+          "forbidden_constructions": [
+              "I am writing",
+              "I am applying",
+          ],
+          "technical_verbs": {{
+              "priority": ["engineered", "developed", "implemented", "optimized", "designed"],
+              "context": technical_achievement
+          }}
+      }},
+  
+      "active_principles": {{
+          "technical_actions": True,
+          "direct_involvement": True,
+          "specific_outcomes": True,
+          "measured_results": True
+      }}
+  }}
+  
+  Content_Integration = {{
+      "technical_foundation": {{
+          "principles": technical_domain_concepts,
+          "implementations": resume.verified_achievements,
+          "outcomes": measured_results,
+          "density": 0.4
+      }},
+  
+      "cultural_elements": {{
+          "team_context": development_methodology,
+          "collaboration": technical_team_outcomes,
+          "adaptation": market_specific_practices,
+          "density": 0.3
+      }},
+  
+      "market_alignment": {{
+          "industry_context": domain_specific_challenges,
+          "scale_experience": system_capacity_evidence,
+          "domain_expertise": technical_specialization,
+          "density": 0.3
+      }}
+  }}
+  
+  Expression_Control = {{
+      "sentence_structure": {{
+          "technical_actions": {{
+              "active_voice_ratio": 0.4
+          }},
+          "career_elements": {{
+              "transition_explanation_ratio": 0.2,
+              "integration_required": True
+          }}
+      }},
+  
+      "paragraph_flow": {{
+          "principle": 0.2,
+          "active_implementation": 0.3,
+          "career_progression": 0.2,
+          "outcome": 0.3
+      }}
+  }}
+  
+  Authentication_Bounds = {{
+      "technical_claims": {{
+          "base": resume_evidence,
+          "extension_limit": 0.3,
+          "must_connect": True,
+          "maintain_technical_domain": True,
+      }},
+  
+      "cultural_claims": {{
+          "base": demonstrated_experience,
+          "context": market_requirements,
+          "validation": concrete_examples
+      }},
+  
+      "progression_claims": {{
+          "base": career_timeline,
+          "context": skill_development,
+          "validation": technical_achievements
+      }}
+  }}
+  
+  Mechanical_Integration = {{
+      "required_insertions": {{
+          "tenure_statement": {{
+              "must_include": True,
+              "connection_type": "explicit"
+          }},
+          "current_status": {{
+              "must_include": True,
+              "connection_type": "explicit"
+          }}
+      }}
+  }}
+  
+  Integration_Requirements = {{
+      "each_paragraph": {{
+          "technical_element": True,
+          "cultural_or_market": True,
+          "progression_context": True,
+          "measured_outcome": True
+      }},
+  
+      "overall_balance": {{
+          "technical_focus": 0.4,
+          "cultural_evidence": 0.2,
+          "market_awareness": 0.1,
+          "timeline_clarity": 0.3
+      }}
+  }}
+  
+  Quality_Control = {{
+      "metrics": {{
+          "technical_accuracy": 0.9,
+          "professional_tone": 0.8,
+          "pattern_uniqueness": 0.8,
+          "cultural_integration": 0.7,
+          "timeline_accuracy": 0.9,
+          "transition_explanation": 0.9
+      }},
+      "word_count": [200, 250],
+      "paragraph_count": [3, 4],
+      "REQUIRED_VALIDATIONS": [
+          "STATEMENT_INTEGRATION_CHECK"
+      ]
+  }}
+  
+  DO NOT include thinking process in your responses. Use the above guidelines, return main letter in plain text with appropriate line breaks only, without any headers or signature blocks.

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manual Job Input</title>
+    <style>
+        .form-section { margin-bottom: 20px; }
+        .form-group { margin-bottom: 10px; }
+        textarea { width: 100%; min-height: 100px; }
+        label { display: block; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Manual Job Input</h2>
+    <form id="jobForm">
+        <div class="form-section">
+            <h3>Basic Information</h3>
+            <div class="form-group">
+                <label for="jobId">Job ID:</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="jobId" required>
+                    <button type="button" id="generateId" style="white-space: nowrap;">Generate ID</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="title">Job Title:</label>
+                <input type="text" id="title" required>
+            </div>
+            <div class="form-group">
+                <label for="company">Company:</label>
+                <input type="text" id="company" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" required>
+            </div>
+            <div class="form-group">
+                <label for="companySize">Company Size:</label>
+                <input type="text" id="companySize" placeholder="e.g. 201-500 employees">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Detailed Information</h3>
+            <div class="form-group">
+                <label for="description">Job Description:</label>
+                <textarea id="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements (optional):</label>
+                <textarea id="requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="aboutCompany">About Company:</label>
+                <textarea id="aboutCompany"></textarea>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <button type="button" id="analyzeBtn">Analyze Job</button>
+            <button type="button" id="applyBtn" disabled>Apply</button>
+        </div>
+
+        <div id="results" class="form-section" style="display: none;">
+            <h3>Analysis Results</h3>
+            <pre id="analysisOutput"></pre>
+        </div>
+    </form>
+
+    <script src="js/manual_input.js"></script>
+</body>
+</html> 

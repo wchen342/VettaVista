@@ -1,0 +1,19 @@
+# Your email address
+email: "example@email.com"        # Enter your email in quotes Eg: "example@email.com"
+
+# Your legal name
+first_name: "First"                 # Your first name in quotes Eg: "First"
+middle_name: "Middle"            # Your name in quotes Eg: "Middle", ""
+last_name: "Last"                # Your last name in quotes Eg: "Last"
+
+# Phone number (required), make sure it's valid.
+phone: "9876543210"        # Enter your phone number in quotes Eg: "9876543210"
+
+# What is your current city?
+current_city: ""                  # Los Angeles, San Francisco, etc.
+
+# Address
+street: "123 Main Street"
+state: "STATE"
+zipcode: "12345"
+country: "Will Let You Know When Established"

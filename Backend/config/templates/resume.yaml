@@ -1,0 +1,63 @@
+# Resume configuration including skills and languages
+
+# What is the link to your portfolio website, leave it empty as "", if you want to leave this question unanswered
+website: "https://example.com"                        # "www.example.bio" or "" and so on....
+
+# Please provide the link to your LinkedIn profile.
+linkedIn: "https://www.linkedin.com/in/example"       # "https://www.linkedin.com/in/example" or "" and so on...
+
+skills:
+  languages:
+    - 'ENGLISH'
+    - 'GERMAN'
+  programming languages:
+    - 'Java'
+    - 'Python'
+    - 'JavaScript'
+  other technical:
+    - 'Git'
+  mobile development:
+    - 'Android SDK'
+    - 'iOS Development'
+  frameworks:
+    - 'React'
+    - 'Node.js'
+  soft skills:
+    - 'Communication'
+    - 'Team Work'
+
+# Experience section
+experience:
+  - title: "Software Engineer"
+    start: 2024-01
+    end: "Present"
+    organization: "ABC Software Inc."
+    location: "Los Angelos, CA, US"
+    details:
+      - "Developing software for the company"
+
+# Projects section
+projects:
+  - name: "Open Source Contributions"
+    details:
+      - "Maintain Job application app using LLMs"
+
+# Education details
+highest_degree: "Master's Degree"
+educations:
+  - degree: "Degree Name"
+    university: "University Name"
+    extra: "Extra Notes"
+    start: 2020-01
+    graduation: 2022-09
+
+# Do you have a Master's degree? (True for Yes and False for No). It adds 2 years to experience count.
+did_masters: true                 # true or false
+
+# Cover letter template
+cover_letter_template: |
+  This is where the cover letter template will go.
+  
+  It can be multi-line, multi-paragraph text.
+  
+  Remember to keep the indent.

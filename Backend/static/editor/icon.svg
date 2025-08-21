@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Document background with gradient -->
+    <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4158D0" />
+            <stop offset="50%" stop-color="#C850C0" />
+            <stop offset="100%" stop-color="#FFCC70" />
+        </linearGradient>
+        <linearGradient id="foldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF9A8B" />
+            <stop offset="100%" stop-color="#FF6A88" />
+        </linearGradient>
+    </defs>
+
+    <!-- Document with rounded corners and colorful gradient -->
+    <rect x="10" y="10" width="80" height="80" rx="6" ry="6" fill="url(#bgGradient)" stroke="#2c3e50" stroke-width="2"/>
+
+    <!-- Text lines with different colors -->
+    <line x1="20" y1="30" x2="65" y2="30" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="45" x2="80" y2="45" stroke="#FFF176" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="60" x2="50" y2="60" stroke="#81D4FA" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="75" x2="70" y2="75" stroke="#A5D6A7" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Dynamic cursor with glow effect -->
+    <rect x="55" y="56" width="3" height="8" fill="#FFFFFF">
+        <animate attributeName="opacity" values="1;0;1" dur="1.5s" repeatCount="indefinite" />
+    </rect>
+    <rect x="55" y="56" width="3" height="8" fill="#FFFFFF" opacity="0.5" filter="blur(2px)">
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="1.5s" repeatCount="indefinite" />
+    </rect>
+
+    <!-- Corner fold with gradient -->
+    <path d="M75 10 L90 25 L75 25 Z" fill="url(#foldGradient)" stroke="#2c3e50" stroke-width="1"/>
+
+    <!-- Dynamic sparkles -->
+    <circle cx="70" cy="30" r="1.5" fill="#FFFFFF">
+        <animate attributeName="r" values="1;2;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="85" cy="45" r="1.5" fill="#FFFFFF">
+        <animate attributeName="r" values="1;2;1" dur="1.7s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="75" cy="75" r="1.5" fill="#FFFFFF">
+        <animate attributeName="r" values="1;2;1" dur="2.3s" repeatCount="indefinite" />
+    </circle>
+</svg>

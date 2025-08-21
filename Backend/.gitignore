@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Configuration - ignore local configs but keep templates
+config/local
+!config/local/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# ML Models
+models/
+
+# Latex
+*.tex
+*.pdf
+*.aux
+*.out
+
+# Other files
+*.csv
+*.bak
+**/generated/
+applications/
+bak/

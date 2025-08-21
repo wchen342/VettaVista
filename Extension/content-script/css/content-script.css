@@ -1,0 +1,232 @@
+.base-card[data-status],
+.job-card-container[data-status],
+.job-card-job-posting-card-wrapper[data-status] {
+    border-left: 4px solid var(--indicator-color);
+    transition: border-color 0.3s ease;
+}
+
+/* Status colors */
+.base-card[data-status="unknown"],
+.job-card-container[data-status="unknown"],
+.job-card-job-posting-card-wrapper[data-status="unknown"]
+{
+    --indicator-color: #808080;
+}
+.base-card[data-status="likely_match"],
+.job-card-container[data-status="likely_match"],
+.job-card-job-posting-card-wrapper[data-status="likely_match"]
+{
+    --indicator-color: #7B9CE1;
+}
+.base-card[data-status="possible_match"],
+.job-card-container[data-status="possible_match"],
+.job-card-job-posting-card-wrapper[data-status="possible_match"]
+{
+    --indicator-color: #E1C37B;
+}
+.base-card[data-status="not_likely"],
+.job-card-container[data-status="not_likely"],
+.job-card-job-posting-card-wrapper[data-status="not_likely"]
+{
+    --indicator-color: #E1917B;
+}
+.base-card[data-status="confirmed_match"],
+.job-card-container[data-status="confirmed_match"],
+.job-card-job-posting-card-wrapper[data-status="confirmed_match"]
+{
+    --indicator-color: #4CAF50;
+}
+.base-card[data-status="confirmed_no_match"],
+.job-card-container[data-status="confirmed_no_match"],
+.job-card-job-posting-card-wrapper[data-status="confirmed_no_match"]
+{
+    --indicator-color: #F44336;
+}
+.base-card[data-status="error"],
+.job-card-container[data-status="error"],
+.job-card-job-posting-card-wrapper[data-status="error"]
+{
+    --indicator-color: #E100FF;
+}
+.base-card[data-status="blacklisted"],
+.base-card[data-blacklist-status="blacklisted"],
+.job-card-container[data-status="blacklisted"],
+.job-card-container[data-blacklist-status="blacklisted"],
+.job-card-job-posting-card-wrapper[data-status="blacklisted"]
+{
+    --indicator-color: #000000;
+}
+
+/* Legend styles */
+.job-status-legend {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.job-status-legend .legend-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: rgba(0,0,0,0.9);
+}
+
+.job-status-legend .legend-item {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    color: rgba(0,0,0,0.75);
+    font-size: 14px;
+}
+
+.job-status-legend .legend-item .indicator {
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+/* Legend indicators */
+.legend-item[data-status="unknown"] .indicator {
+    background-color: #808080;
+}
+.legend-item[data-status="likely_match"] .indicator {
+    background-color: #7B9CE1;
+}
+.legend-item[data-status="possible_match"] .indicator {
+    background-color: #E1C37B;
+}
+.legend-item[data-status="not_likely"] .indicator {
+    background-color: #E1917B;
+}
+.legend-item[data-status="confirmed_match"] .indicator {
+    background-color: #4CAF50;
+}
+.legend-item[data-status="confirmed_no_match"] .indicator {
+    background-color: #F44336;
+}
+.legend-item[data-status="blacklisted"] .indicator {
+    background-color: #000000;
+}
+
+.job-status-legend .stats {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+    color: rgba(0,0,0,0.9);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.job-processing-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0 0 0 8px;
+}
+
+.job-processing-indicator .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Make job cards position relative for absolute positioning */
+.job-card-container,
+.job-card-job-posting-card-wrapper
+{
+    position: relative !important;
+}
+
+/* Tooltip styles */
+.base-card[data-tooltip],
+.job-card-container[data-tooltip],
+.job-card-job-posting-card-wrapper[data-tooltip]
+{
+    cursor: help;
+}
+
+.base-card[data-tooltip]:hover::after,
+.job-card-container[data-tooltip]:hover::after,
+.job-card-job-posting-card-wrapper[data-tooltip]:hover::after
+{
+    content: attr(data-tooltip);
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: calc(100% - 40px);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    z-index: 9999;
+    width: max-content;
+    max-width: 250px;
+    text-align: center;
+    pointer-events: none;
+    font-size: 13px;
+    line-height: 1.2;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    white-space: normal;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+/* Blacklist button styles */
+.blacklist-btn {
+    position: absolute;
+    top: 40px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px;
+    opacity: 0.4;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.job-card-container:hover .blacklist-btn,
+.job-card-job-posting-card-wrapper:hover .blacklist-btn
+{
+    opacity: 0.6;
+}
+
+.blacklist-btn:hover {
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Hide jobs that are either:
+   1. In history with APPLIED status, or 
+   2. Have CONFIRMED_NO_MATCH status, or
+   3. Is blacklisted */
+li.occludable-update.hide-filtered .base-card[data-application-status="applied"],
+li.occludable-update.hide-filtered .job-card-container[data-application-status="applied"],
+li.occludable-update.hide-filtered .job-card-job-posting-card-wrapper[data-application-status="applied"],
+li.occludable-update.hide-filtered .base-card[data-blacklist-status="blacklisted"],
+li.occludable-update.hide-filtered .job-card-container[data-blacklist-status="blacklisted"],
+li.occludable-update.hide-filtered .job-card-job-posting-card-wrapper[data-blacklist-status="blacklisted"],
+li.occludable-update.hide-filtered .base-card[data-status="confirmed_no_match"],
+li.occludable-update.hide-filtered .job-card-container[data-status="confirmed_no_match"],
+li.occludable-update.hide-filtered .job-card-job-posting-card-wrapper[data-status="confirmed_no_match"]
+{
+    display: none !important;
+}

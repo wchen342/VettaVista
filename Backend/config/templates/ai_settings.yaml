@@ -1,0 +1,14 @@
+# AI configuration
+
+# Claude Settings
+
+# Temperature settings for different tasks (only available when thinking is disabled)
+claude_extraction_temperature: 0.2  # Low temperature for consistent extraction of facts
+claude_customization_temperature: 0.9  # Higher temperature for creative tasks
+
+# Token limitations
+claude_max_tokens: 12000
+claude_thinking_budget_tokens: 6000
+
+# Other settings
+claude_thinking: false  # Set to True to enable thinking. Will be slower.
