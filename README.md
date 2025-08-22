@@ -37,6 +37,7 @@ VettaVista integrates directly with your browser to enhance your LinkedIn job se
 - [Roadmap](#-roadmap)
 - [Issues](#-issues)
 - [License](#-license)
+- [Privacy Policy](#-privacy-policy)
 - [Disclaimer](#disclaimer)
 
 ## 🌟 Features
@@ -241,6 +242,10 @@ If you encounter issues or have suggestions:
 ## 📜 License
 
 See [LICENSE](LICENSE.md)
+
+## 🔒 Privacy Policy
+
+See [PRIVACY](PRIVACY.md)
 
 ## Disclaimer
 
