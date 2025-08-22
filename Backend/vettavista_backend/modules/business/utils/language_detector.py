@@ -8,7 +8,7 @@ import numpy as np
 import platformdirs
 from lingua import LanguageDetectorBuilder
 
-from vettavista_backend.config import APP_NAME, VERSION
+from vettavista_backend.config import APP_NAME
 from vettavista_backend.modules.business.utils.base import LanguageDetector
 
 logger = logging.getLogger(__name__)
@@ -67,7 +67,7 @@ class HybridLanguageDetector(LanguageDetector):
         if not HybridLanguageDetector._initialized:
             if is_linux:
                 # Initialize fasttext model
-                config_dir = Path(platformdirs.user_data_dir(APP_NAME, appauthor=False, version=VERSION))
+                config_dir = Path(platformdirs.user_data_dir(APP_NAME, appauthor=False))
                 model_dir = config_dir / "models"
                 model_path = model_dir / "lid.176.ftz"
                 if not model_dir.exists():

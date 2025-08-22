@@ -24,7 +24,7 @@ from watchdog.events import FileSystemEventHandler, FileSystemEvent, DirMovedEve
     FileMovedEvent, DirModifiedEvent, FileModifiedEvent, DirCreatedEvent, FileCreatedEvent
 from watchdog.observers import Observer
 
-from vettavista_backend.config.global_constants import VERSION, APP_NAME
+from vettavista_backend.config.global_constants import APP_NAME
 from vettavista_backend.config.models import (
     PersonalsModel, ResumeModel, SecretsModel,
     ExperienceEntry, ProjectEntry, Education, SearchModel, AISettingModel, AIPromptsModel
@@ -131,7 +131,7 @@ class DynamicConfig(Generic[T]):
         self.template_path = resources.files('vettavista_backend.config.templates').joinpath(f"{name}.yaml")
 
         # Set up platform-specific config directory using platformdirs
-        config_dir = Path(platformdirs.user_config_dir(APP_NAME, appauthor=False, version=VERSION))
+        config_dir = Path(platformdirs.user_config_dir(APP_NAME, appauthor=False))
         local_dir = config_dir / "local"
 
         # Create config and local directories if they don't exist

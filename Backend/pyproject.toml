@@ -1,6 +1,6 @@
 [project]
 name = "vettavista-backend"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Will Chen", email="wc_public@tuta.io" },
 ]
