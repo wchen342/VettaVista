@@ -144,7 +144,8 @@ app = FastAPI(lifespan=lifespan)
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["127.0.0.1"],
+    allow_origins=[ "127.0.0.1" ],
+    allow_origin_regex=r"^moz-extension://[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",   # Until we have a permanent ID
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
