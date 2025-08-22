@@ -62,6 +62,12 @@ async function processManifest(devObject, isFirefox) {
         if (isFirefox) {
             manifest.background.scripts = [manifest.background.service_worker]
             delete manifest.background.service_worker
+
+            // Need to add ID manually
+            manifest.browser_specific_settings = {"gecko": {"id": "{d409797b-0e11-4b68-bd0a-1dea741e0d03}"}}
+
+            // Replace name because of a 45-character limit
+            manifest.name = manifest.name.replace("Smart Job Search & Application Assistant", "Smart Job Search/Apply Asst.");
         }
 
         // Write the processed manifest
