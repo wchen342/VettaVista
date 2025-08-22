@@ -18,26 +18,26 @@ VettaVista integrates directly with your browser to enhance your LinkedIn job se
 
 ## 📑 Table of Contents
 
-- [Features](#features)
-    - [Smart, Two-Stage Filtering](#smart-two-stage-filtering)
-    - [Company Blacklisting](#company-blacklisting)
-    - [AI-Assisted Application Materials](#ai-assisted-application-materials)
-    - [Application Management](#application-management)
-- [Installation](#installation)
-    - [Requirements](#requirements)
-    - [Backend (Python Server)](#backend-python-server)
-    - [Frontend (Browser Extension)](#frontend-browser-extension)
-- [Usage](#usage)
-    - [Quick Start](#quick-start)
-    - [Job Filtering](#job-filtering)
-    - [Resume & Cover Letter Assistant](#resume--cover-letter-assistant)
-    - [Managing Applications](#managing-applications)
-- [Technical Overview](#technical-overview)
-- [Customization](#customization)
-- [Roadmap](#roadmap)
+- [Features](#-features)
+    - [Smart, Two-Stage Filtering](#-smart-two-stage-filtering)
+    - [Company Blacklisting](#-company-blacklisting)
+    - [AI-Assisted Application Materials](#-ai-assisted-application-materials)
+    - [Application Management](#-application-management)
+- [Installation](#-installation)
+    - [Requirements](#-requirements)
+    - [Backend (Python Server)](#-backend-python-server)
+    - [Frontend (Browser Extension)](#-frontend-browser-extension)
+- [Usage](#-usage)
+    - [Quick Start](#-quick-start)
+    - [Job Filtering](#-job-filtering)
+    - [Resume & Cover Letter Assistant](#-resume--cover-letter-assistant)
+    - [Managing Applications](#-managing-applications)
+- [Technical Overview](#-technical-overview)
+- [Customization](#-customization)
+- [Roadmap](#-roadmap)
+- [Issues](#-issues)
+- [License](#-license)
 - [Disclaimer](#disclaimer)
-- [Support](#support)
-- [License](#license)
 
 ## 🌟 Features
 
@@ -85,16 +85,16 @@ VettaVista integrates directly with your browser to enhance your LinkedIn job se
 
 - Python 3.9 or higher
 - Anthropic API key (See [here](https://docs.anthropic.com/en/docs/get-started) for how to get an API key)
-- Chrome or Firefox browser
+- Chrome/Edge or Firefox browser
 
 ### 🐍 Backend (Python Server)
 
 *WIP: The package will be available on PyPI.*
 
-Currently, the package can be installed directly from the distributed files:
+The package can be installed directly from PyPI:
 
 ```bash
-# Instructions for installing the Python package will be provided here
+python3 -m pip install vettavista-backend
 ```
 
 #### Linux Dependencies
@@ -116,12 +116,12 @@ On Linux distributions, you may need to install Python development files:
 
 ### 🧩 Frontend (Browser Extension)
 
-*WIP: Chrome Web Store and Firefox Add-ons releases are being worked on.*
+*WIP: Chrome/Edge Web Store and Firefox Add-ons releases are being worked on.*
 
 For now, the browser extension can be side-loaded:
 
-**Chrome:**
-1. Go to `chrome://extensions/`
+**Chrome/Edge:**
+1. Go to `chrome://extensions/` or `edge://extensions/`
 2. Enable "Developer mode"
 3. Click "Load unpacked"
 4. Select the `Extension/dist` directory from the distributed files
@@ -225,7 +225,7 @@ Example use cases for customization:
 
 Planned improvements include:
 
-- Official release on PyPI and browser extension stores
+- Release on browser extension stores
 - Additional AI model options
 - User interface for editing filtering settings
 - Enhanced job application management features
