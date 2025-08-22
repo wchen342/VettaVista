@@ -89,8 +89,6 @@ VettaVista integrates directly with your browser to enhance your LinkedIn job se
 
 ### 🐍 Backend (Python Server)
 
-*WIP: The package will be available on PyPI.*
-
 The package can be installed directly from PyPI:
 
 ```bash
@@ -135,7 +133,7 @@ For now, the browser extension can be side-loaded:
 
 ### 🚀 Quick Start
 
-For installation, see [Installation](#installation)
+For installation, see [Installation](#-installation)
 
 1. Configure your Anthropic API key in the extension settings in `secrets.yaml`:
     - Windows:
