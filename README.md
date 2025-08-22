@@ -43,8 +43,10 @@ VettaVista integrates directly with your browser to enhance your LinkedIn job se
 
 ### 🔍 Smart, Two-Stage Filtering
 
-- **⚡ Preliminary Filtering**: Quickly filter search results based on multiple criteria and your preferences
-    - Analyzes job titles, language, and Glassdoor scores (requires [inDoors](https://github.com/CalvinWu4/inDoors))
+- **⚡ Preliminary Filtering**: Quickly filter search results
+    - Matches job titles using fuzzy search that understands similar terms
+    - Detects listing languages to align with your language preferences
+    - Leverages a small local LLM for quick, on-device assessment
     - Processes multiple listings simultaneously when scrolling down the list
 - **🧠 Detailed Assessment**: In-depth evaluation using AI
     - Analyzes complete job descriptions and company information
