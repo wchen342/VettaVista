@@ -7,6 +7,7 @@ from pylatex import Document, Package, NoEscape
 from pylatex.utils import escape_latex
 
 from vettavista_backend.config import personals, resume
+from vettavista_backend.modules.utils import get_last_segment
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +97,7 @@ class CoverLetterGenerator:
         
         # Links
         doc.append(NoEscape(r'\begin{minipage}[b]{0.25\textwidth}\flushright \large'))
-        linkedin_id = resume.linkedIn.split('/')[-1]
+        linkedin_id = get_last_segment(resume.linkedIn)
         doc.append(NoEscape(fr'{{\href{{{NoEscape(resume.linkedIn)}}}{{linkedin.com/{linkedin_id}}} }} \\'))
         doc.append(NoEscape(fr'\href{{{NoEscape(resume.website)}}}{{{escape_latex(resume.website.replace("https://", ""))}}}'))
         doc.append(NoEscape(r'\end{minipage}'))

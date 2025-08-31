@@ -7,6 +7,7 @@ from pylatex.base_classes import Environment, CommandBase
 from pylatex.utils import escape_latex, italic, bold
 
 from vettavista_backend.config import personals, resume, ResumeModel
+from vettavista_backend.modules.utils import get_last_segment
 
 
 def _format_date(date: datetime) -> str:
@@ -81,7 +82,7 @@ class ResumeGenerator:
         email_href = HrefCommand(arguments=[f'mailto:{personals.email}', escape_latex(personals.email)])
         linkedin_href = HrefCommand(arguments=[
             NoEscape(resume.linkedIn),
-            escape_latex(f'linkedin.com/in/{resume.linkedIn.split("/")[-1]}')
+            escape_latex(f'linkedin.com/in/{get_last_segment(resume.linkedIn)}')
         ])
         website_href = HrefCommand(arguments=[
             resume.website,
@@ -221,7 +222,7 @@ class ResumeGenerator:
         return output_path + '.pdf'
 
 if __name__ == "__main__":
-    from config import resume as default_resume
+    from vettavista_backend.config import resume as default_resume
     generator = ResumeGenerator()
     
     # Test normal resume generation

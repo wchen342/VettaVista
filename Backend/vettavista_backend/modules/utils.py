@@ -4,6 +4,7 @@ from dataclasses import is_dataclass, asdict, fields
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, Type, TypeVar
+from urllib.parse import urlparse
 
 
 def parse_employee_count(size_str: str) -> tuple[int, int]:
@@ -159,3 +160,9 @@ def decode_dataclass(cls: Type[T], data: Dict[str, Any]) -> T:
             decoded_data[key] = value
             
     return cls(**decoded_data)
+
+
+def get_last_segment(url):
+    path = urlparse(url).path
+    segments = [segment for segment in path.split('/') if segment]
+    return segments[-1] if segments else ""
