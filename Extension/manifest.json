@@ -5,9 +5,7 @@
   "description": "Browser-integrated LinkedIn companion offering intelligent job filtering alongside tailored application refinement.",
   "version": "0.0.1",
   "permissions": [
-    "storage",
-    "tabs",
-    "webNavigation"
+    "storage"
   ],
   "host_permissions": [
     "http://127.0.0.1:8000/*",
