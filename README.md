@@ -1,6 +1,34 @@
-# 🚀 VettaVista - AI-Powered LinkedIn Job Application Assistant
+<div align="center">
 
-Streamline your job search with intelligent filtering and AI-refined application materials.
+# VettaVista - AI-Powered LinkedIn Job Application Assistant
+
+*Streamline your job search with intelligent filtering and AI-refined application materials.*
+
+<div align="center">
+	<a href="https://chromewebstore.google.com/detail/vettavista-smart-job-sear/gggoakckniibblepafgfhbfapbkbajdb">Chrome Web Store</a> | <a href="https://microsoftedge.microsoft.com/addons/detail/vettavista-smart-job-se/njdhpmgphghjhncabgaobkfbfnjafmad">Microsoft Edge Addons</a> | <a href="https://addons.mozilla.org/en-US/firefox/addon/vettavista/">Firefox Addon</a>
+</div>
+
+<p align="center">
+
+[![License](https://img.shields.io/github/license/wchen342/VettaVista?style=flat-square)](https://github.com/wchen342/VettaVista/blob/main/LICENSE)
+[![PyPI Version](https://img.shields.io/pypi/v/vettavista-backend?style=flat-square)](https://pypi.org/project/vettavista-backend/)
+[![Python Version](https://img.shields.io/pypi/pyversions/vettavista-backend?style=flat-square)](https://pypi.org/project/vettavista-backend/)
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/gggoakckniibblepafgfhbfapbkbajdb?style=flat-square)](https://chromewebstore.google.com/detail/vettavista-smart-job-sear/gggoakckniibblepafgfhbfapbkbajdb)
+[![Microsoft Edge](https://custom-icon-badges.demolab.com/badge/Microsoft%20Edge-2771D8?style=flat-square&logo=edge-white&logoColor=white)](https://www.microsoft.com/en-us/edge)
+[![Mozilla Add-on Version](https://img.shields.io/amo/v/vettavista?style=flat-square)](https://addons.mozilla.org/en-US/firefox/addon/vettavista/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+[![Claude](https://img.shields.io/badge/Claude-D97757?style=flat-square&logo=claude&logoColor=white)](https://claude.ai/)
+[![Cursor](https://custom-icon-badges.demolab.com/badge/Cursor-000000?style=flat-square&logo=cursor-ai-white)](https://cursor.com)
+[![React](https://img.shields.io/badge/React-%2320232a.svg?style=flat-square&logo=react&logoColor=%2361DAFB)](https://react.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009485.svg?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+
+</p>
+
+<div align="center">
+    <a href="https://www.producthunt.com/products/vettavista?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-vettavista" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1011788&theme=light&t=1756752000528" alt="VettaVista - AI&#0045;Powered&#0032;LinkedIn&#0032;Job&#0032;Search&#0032;&#0038;&#0032;Application&#0032;Assistant | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+</div>
+
+</div>
 
 ![VettaVista in action](images/screenshots.jpg)
 
@@ -117,20 +145,25 @@ On Linux distributions, you may need to install Python development files:
 
 ### 🧩 Frontend (Browser Extension)
 
-*WIP: Chrome/Edge Web Store and Firefox Add-ons releases are being worked on.*
+Install directly from your browser's extension store:
 
-For now, the browser extension can be side-loaded:
+<div>
+  <a href="https://chromewebstore.google.com/detail/vettavista-smart-job-sear/gggoakckniibblepafgfhbfapbkbajdb" target="_blank">
+    <img src="https://img.shields.io/badge/Chrome-Add%20to%20Chrome-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white">
+  </a>
+</div>
 
-**Chrome/Edge:**
-1. Go to `chrome://extensions/` or `edge://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select the `Extension/dist` directory from the distributed files
+<div>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/vettavista/" target="_blank">
+    <img src="https://img.shields.io/badge/Firefox-Add%20to%20Firefox-FF7139?style=for-the-badge&logo=firefox-browser&logoColor=white">
+  </a>
+</div>
 
-**Firefox:**
-1. Go to `about:debugging#/runtime/this-firefox`
-2. Click "Load Temporary Add-on..."
-3. Select any file in the `Extension/dist_ff` directory from the distributed files
+<div>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/vettavista-smart-job-se/njdhpmgphghjhncabgaobkfbfnjafmad" target="_blank">
+    <img src="https://img.shields.io/badge/Edge-Add%20to%20Edge-0078D7?style=for-the-badge&logo=microsoft-edge&logoColor=white">
+  </a>
+</div>
 
 ## 🔰 Usage
 
